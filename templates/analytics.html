@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RA Analytics - RheumaCare</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #061f18;
+            color: white;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            height: 75px;
+            padding: 0 7%;
+            background: #08291f;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #174b3a;
+        }
+
+        nav h2 {
+            color: #70e3a1;
+            font-size: 24px;
+        }
+
+        nav div {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #d7eee5;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #70e3a1;
+        }
+
+        /* MAIN */
+
+        .analytics-container {
+            width: 92%;
+            max-width: 1500px;
+            margin: 40px auto;
+        }
+
+        .analytics-header {
+            background: #0b3025;
+            border: 1px solid #205643;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .analytics-header h1 {
+            color: #70e3a1;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .analytics-header p {
+            color: #9fbcb3;
+        }
+
+        /* KPI */
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: #0d3529;
+            border: 1px solid #1c503f;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .kpi-card:hover {
+            border-color: #70e3a1;
+            transform: translateY(-3px);
+        }
+
+        .kpi-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .kpi-card h3 {
+            color: #c6ddd5;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .kpi-card h2 {
+            color: #70e3a1;
+            font-size: 34px;
+        }
+
+        .kpi-card p {
+            color: #9fbcb3;
+        }
+
+        .positive {
+            background: #3a2423;
+            border-color: #70403b;
+        }
+
+        .positive h2 {
+            color: #ff8f87 !important;
+        }
+
+        /* CHARTS */
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .chart-card {
+            background: #0b3025;
+            border: 1px solid #205643;
+            border-radius: 20px;
+            padding: 25px;
+            min-height: 390px;
+        }
+
+        .chart-card h2 {
+            color: #70e3a1;
+            font-size: 19px;
+            margin-bottom: 20px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+
+        /* INSIGHTS */
+
+        .insights-card {
+            background: #0b3025;
+            border: 1px solid #205643;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .insights-card h2 {
+            color: #70e3a1;
+            margin-bottom: 20px;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .insights-grid div {
+            background: #0d3529;
+            border: 1px solid #1c503f;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .insights-grid h3 {
+            color: #70e3a1;
+            margin-bottom: 10px;
+        }
+
+        .insights-grid p {
+            color: #9fbcb3;
+            line-height: 1.6;
+        }
+
+        /* NOTE */
+
+        .analytics-note {
+            background: #123b2f;
+            border: 1px solid #28614d;
+            color: #c6ddd5;
+            padding: 18px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 1100px) {
+
+            nav {
+                height: auto;
+                padding: 18px 5%;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav div {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .insights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .analytics-container {
+                width: 94%;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .analytics-header h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <h2>🩺 RheumaCare</h2>
+
+        <div>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/analytics">Analytics</a>
+            <a href="/assessment">Assessment</a>
+            <a href="/diet">Diet</a>
+            <a href="/medicine">Medicine</a>
+            <a href="/tracker">Tracker</a>
+            <a href="/logout">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <div class="analytics-container">
+
+
+        <!-- HEADER -->
+
+        <div class="analytics-header">
+
+            <h1>
+                Rheumatoid Arthritis Analytics
+            </h1>
+
+            <p>
+                Data-driven analysis of rheumatoid arthritis
+                patient information
+            </p>
+
+        </div>
+
+
+        <!-- KPI CARDS -->
+
+        <div class="kpi-grid">
+
+            <div class="kpi-card">
+
+                <div class="kpi-icon">👥</div>
+
+                <h3>Total Patients</h3>
+
+                <h2>{{ total_patients }}</h2>
+
+            </div>
+
+
+            <div class="kpi-card positive">
+
+                <div class="kpi-icon">🔴</div>
+
+                <h3>RA Positive</h3>
+
+                <h2>{{ ra_positive }}</h2>
+
+                <p>{{ ra_positive_percent }}%</p>
+
+            </div>
+
+
+            <div class="kpi-card">
+
+                <div class="kpi-icon">🟢</div>
+
+                <h3>RA Negative</h3>
+
+                <h2>{{ ra_negative }}</h2>
+
+            </div>
+
+
+            <div class="kpi-card">
+
+                <div class="kpi-icon">📊</div>
+
+                <h3>RA Positive %</h3>
+
+                <h2>{{ ra_positive_percent }}%</h2>
+
+            </div>
+
+        </div>
+
+
+        <!-- FIRST CHART ROW -->
+
+        <div class="chart-grid">
+
+
+            <div class="chart-card">
+
+                <h2>RA Diagnosis Distribution</h2>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="diagnosisChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <h2>Age Group vs RA Diagnosis</h2>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="ageChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <h2>Gender-wise RA Cases</h2>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="genderChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SECOND CHART ROW -->
+
+        <div class="chart-grid">
+
+
+            <div class="chart-card">
+
+                <h2>Inflammatory Indicators</h2>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="inflammationChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <h2>Joint Symptoms</h2>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="symptomsChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <h2>Disease Severity - DAS28</h2>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="severityChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- INSIGHTS -->
+
+        <div class="insights-card">
+
+            <h2>💡 Key Insights</h2>
+
+            <div class="insights-grid">
+
+                <div>
+
+                    <h3>👥 Patient Distribution</h3>
+
+                    <p>
+                        The dataset contains
+                        <strong>{{ total_patients }}</strong>
+                        patients.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>🔴 RA Positive</h3>
+
+                    <p>
+                        <strong>{{ ra_positive }}</strong>
+                        patients are classified as
+                        RA-Positive in the dataset.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>🧪 Inflammation</h3>
+
+                    <p>
+                        ESR, CRP, RF and Anti-CCP values
+                        are compared between the diagnosis groups.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>🦴 Joint Symptoms</h3>
+
+                    <p>
+                        Tender joints, swollen joints and
+                        morning stiffness are compared
+                        between groups.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="analytics-note">
+
+            ⚠️ This dashboard uses a synthetic dataset
+            for educational and project demonstration
+            purposes. Analytics shown here are not a
+            medical diagnosis.
+
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        Chart.defaults.color = "#c6ddd5";
+
+        Chart.defaults.borderColor = "#28614d";
+
+
+        const raPositive =
+            {{ ra_positive | default(0) | tojson }};
+
+        const raNegative =
+            {{ ra_negative | default(0) | tojson }};
+
+
+        const ageGroups =
+            {{ age_groups | default([]) | tojson }};
+
+        const agePositive =
+            {{ age_positive | default([]) | tojson }};
+
+        const ageNegative =
+            {{ age_negative | default([]) | tojson }};
+
+
+        const genders =
+            {{ genders | default([]) | tojson }};
+
+        const genderPositive =
+            {{ gender_positive | default([]) | tojson }};
+
+        const genderNegative =
+            {{ gender_negative | default([]) | tojson }};
+
+
+        const inflammationPositive =
+            {{ inflammation_positive | default([]) | tojson }};
+
+        const inflammationNegative =
+            {{ inflammation_negative | default([]) | tojson }};
+
+
+        const symptomsPositive =
+            {{ symptoms_positive | default([]) | tojson }};
+
+        const symptomsNegative =
+            {{ symptoms_negative | default([]) | tojson }};
+
+
+        const severityLabels =
+            {{ severity_labels | default([]) | tojson }};
+
+        const severityValues =
+            {{ severity_values | default([]) | tojson }};
+
+
+        /* DIAGNOSIS */
+
+        new Chart(
+            document.getElementById("diagnosisChart"),
+            {
+                type: "doughnut",
+
+                data: {
+                    labels: [
+                        "RA Positive",
+                        "RA Negative"
+                    ],
+
+                    datasets: [{
+                        data: [
+                            raPositive,
+                            raNegative
+                        ],
+
+                        backgroundColor: [
+                            "#ff6b61",
+                            "#70e3a1"
+                        ],
+
+                        borderColor: "#0b3025",
+                        borderWidth: 3
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            position: "bottom"
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* AGE */
+
+        new Chart(
+            document.getElementById("ageChart"),
+            {
+                type: "bar",
+
+                data: {
+                    labels: ageGroups,
+
+                    datasets: [
+
+                        {
+                            label: "RA Positive",
+                            data: agePositive,
+                            backgroundColor: "#ff6b61"
+                        },
+
+                        {
+                            label: "RA Negative",
+                            data: ageNegative,
+                            backgroundColor: "#70e3a1"
+                        }
+
+                    ]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* GENDER */
+
+        new Chart(
+            document.getElementById("genderChart"),
+            {
+                type: "bar",
+
+                data: {
+                    labels: genders,
+
+                    datasets: [
+
+                        {
+                            label: "RA Positive",
+                            data: genderPositive,
+                            backgroundColor: "#ff6b61"
+                        },
+
+                        {
+                            label: "RA Negative",
+                            data: genderNegative,
+                            backgroundColor: "#70e3a1"
+                        }
+
+                    ]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* INFLAMMATION */
+
+        new Chart(
+            document.getElementById("inflammationChart"),
+            {
+                type: "bar",
+
+                data: {
+                    labels: [
+                        "ESR",
+                        "CRP",
+                        "RF",
+                        "Anti-CCP"
+                    ],
+
+                    datasets: [
+
+                        {
+                            label: "RA Positive",
+                            data: inflammationPositive,
+                            backgroundColor: "#ff6b61"
+                        },
+
+                        {
+                            label: "RA Negative",
+                            data: inflammationNegative,
+                            backgroundColor: "#70e3a1"
+                        }
+
+                    ]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* SYMPTOMS */
+
+        new Chart(
+            document.getElementById("symptomsChart"),
+            {
+                type: "bar",
+
+                data: {
+                    labels: [
+                        "Tender Joints",
+                        "Swollen Joints",
+                        "Morning Stiffness"
+                    ],
+
+                    datasets: [
+
+                        {
+                            label: "RA Positive",
+                            data: symptomsPositive,
+                            backgroundColor: "#ff6b61"
+                        },
+
+                        {
+                            label: "RA Negative",
+                            data: symptomsNegative,
+                            backgroundColor: "#70e3a1"
+                        }
+
+                    ]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* DAS28 */
+
+        new Chart(
+            document.getElementById("severityChart"),
+            {
+                type: "doughnut",
+
+                data: {
+                    labels: severityLabels,
+
+                    datasets: [{
+                        data: severityValues,
+
+                        backgroundColor: [
+                            "#70e3a1",
+                            "#f4c95d",
+                            "#ff6b61"
+                        ],
+
+                        borderColor: "#0b3025",
+                        borderWidth: 3
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            position: "bottom"
+                        }
+                    }
+                }
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

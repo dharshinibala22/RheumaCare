@@ -1,0 +1,147 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RA Assessment | RheumaCare</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            RheumaCare
+        </div>
+
+        <div class="nav-links">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/logout">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <section class="form-section">
+
+        <h1>RA Assessment</h1>
+
+        <p>
+            Enter the patient's health and laboratory information
+            to calculate an educational RA indicator score.
+        </p>
+
+
+        <form action="/predict" method="POST">
+
+            <label>Age</label>
+            <input type="number"
+                   name="age"
+                   min="1"
+                   required>
+
+
+            <label>Rheumatoid Factor (RF) IU/mL</label>
+            <input type="number"
+                   name="rf"
+                   step="0.01"
+                   min="0"
+                   required>
+
+
+            <label>Anti-CCP U/mL</label>
+            <input type="number"
+                   name="anti_ccp"
+                   step="0.01"
+                   min="0"
+                   required>
+
+
+            <label>ESR mm/hr</label>
+            <input type="number"
+                   name="esr"
+                   step="0.01"
+                   min="0"
+                   required>
+
+
+            <label>CRP mg/L</label>
+            <input type="number"
+                   name="crp"
+                   step="0.01"
+                   min="0"
+                   required>
+
+
+            <label>Tender Joint Count</label>
+            <input type="number"
+                   name="tender"
+                   min="0"
+                   required>
+
+
+            <label>Swollen Joint Count</label>
+            <input type="number"
+                   name="swollen"
+                   min="0"
+                   required>
+
+
+            <label>Morning Stiffness (minutes)</label>
+            <input type="number"
+                   name="stiffness"
+                   min="0"
+                   required>
+
+
+            <label>Disease Duration (months)</label>
+            <input type="number"
+                   name="disease_duration"
+                   step="0.1"
+                   min="0"
+                   required>
+
+
+            <button type="submit">
+                Calculate RA Indicators
+            </button>
+
+        </form>
+
+
+        {% if result %}
+
+        <div class="result">
+
+            <h2>{{ result }}</h2>
+
+            <p>
+                Indicator Score:
+                <strong>{{ score }}/7</strong>
+            </p>
+
+            <p>
+                Level:
+                <strong>{{ level }}</strong>
+            </p>
+
+            <p>
+                This result is an educational prototype
+                and is not a medical diagnosis.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</body>
+
+</html>
+```

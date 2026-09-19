@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medicine Reminder - RheumaCare</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<nav>
+    <h2>RheumaCare</h2>
+
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/assessment">Assessment</a>
+        <a href="/diet">Diet</a>
+        <a href="/medicine">Medicine</a>
+        <a href="/tracker">Tracker</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+
+<div class="container">
+
+    <h1>💊 Medicine Reminder</h1>
+
+    <p>
+        Record medicines and schedules prescribed by your doctor.
+    </p>
+
+
+    <!-- ADD MEDICINE -->
+
+    <div class="card">
+
+        <h2>➕ Add Medicine</h2>
+
+        <form action="{{ url_for('medicine') }}"
+              method="POST">
+
+            <label>Medicine Name</label>
+
+            <input
+                type="text"
+                name="medicine_name"
+                placeholder="Enter medicine name"
+                required
+            >
+
+            <label>Prescribed Details</label>
+
+            <input
+                type="text"
+                name="prescribed_details"
+                placeholder="Example: As prescribed by doctor"
+            >
+
+            <label>Reminder Time</label>
+
+            <input
+                type="time"
+                name="reminder_time"
+                required
+            >
+
+            <button type="submit">
+                Add Reminder
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- SAVED MEDICINES -->
+
+    <div class="card">
+
+        <h2>📋 Saved Medicines</h2>
+
+        {% if medicines %}
+
+            {% for medicine in medicines %}
+
+                <div class="medicine-item">
+
+                    <h3>
+                        💊 {{ medicine["medicine_name"] }}
+                    </h3>
+
+                    <p>
+                        📋 Details:
+                        {{ medicine["prescribed_details"] }}
+                    </p>
+
+                    <p>
+                        ⏰ Reminder:
+                        {{ medicine["reminder_time"] }}
+                    </p>
+
+                    <p>
+                        📅 Added:
+                        {{ medicine["created_at"] }}
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No medicines added yet.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- NOTIFICATION STATUS -->
+
+    <div class="card">
+
+        <h2>🔔 Reminder Notification</h2>
+
+        <p id="notificationStatus">
+            Checking notification permission...
+        </p>
+
+        <button type="button"
+                onclick="enableNotifications()">
+            🔔 Enable Notifications
+        </button>
+
+    </div>
+
+
+    <!-- IMPORTANT -->
+
+    <div class="card">
+
+        <h2>⚠️ Important</h2>
+
+        <p>
+            This feature is only for recording and reminding you
+            about medicines prescribed by your doctor.
+            It does not prescribe medicines or change dosage,
+            timing, or treatment.
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // ==========================================
+    // ENABLE BROWSER NOTIFICATIONS
+    // ==========================================
+
+    function enableNotifications() {
+
+        if (!("Notification" in window)) {
+
+            document.getElementById("notificationStatus").innerText =
+                "❌ Your browser does not support notifications.";
+
+            return;
+        }
+
+        Notification.requestPermission().then(function(permission) {
+
+            if (permission === "granted") {
+
+                document.getElementById("notificationStatus").innerText =
+                    "✅ Notifications enabled.";
+
+            } else {
+
+                document.getElementById("notificationStatus").innerText =
+                    "⚠️ Notifications are not enabled.";
+
+            }
+
+        });
+
+    }
+
+
+    // ==========================================
+    // CHECK MEDICINE REMINDER
+    // ==========================================
+
+    function checkMedicineReminder() {
+
+        const medicines = [
+            {% for medicine in medicines %}
+            {
+                name: "{{ medicine['medicine_name']|replace('"', '\\"') }}",
+                time: "{{ medicine['reminder_time'] }}"
+            }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+
+        const now = new Date();
+
+        const currentHour =
+            String(now.getHours()).padStart(2, "0");
+
+        const currentMinute =
+            String(now.getMinutes()).padStart(2, "0");
+
+
+        const currentTime =
+            currentHour + ":" + currentMinute;
+
+
+        medicines.forEach(function(medicine) {
+
+            if (medicine.time === currentTime) {
+
+                if (
+                    "Notification" in window &&
+                    Notification.permission === "granted"
+                ) {
+
+                    new Notification(
+                        "💊 RheumaCare Medicine Reminder",
+                        {
+                            body:
+                                "Time to take " +
+                                medicine.name +
+                                " as prescribed by your doctor."
+                        }
+                    );
+
+                }
+
+            }
+
+        });
+
+    }
+
+
+    // Check every 30 seconds
+
+    setInterval(
+        checkMedicineReminder,
+        30000
+    );
+
+
+    // Check immediately
+
+    checkMedicineReminder();
+
+
+</script>
+
+</body>
+</html>

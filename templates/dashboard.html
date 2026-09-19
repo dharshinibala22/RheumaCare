@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - RheumaCare</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- ================================
+         NAVBAR
+    ================================= -->
+
+    <nav>
+
+        <div class="brand">
+            🩺 RheumaCare
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/analytics">
+                Analytics
+            </a>
+
+            <a href="/assessment">
+                Assessment
+            </a>
+
+            <a href="/diet">
+                Diet
+            </a>
+
+            <a href="/medicine">
+                Medicine
+            </a>
+
+            <a href="/tracker">
+                Tracker
+            </a>
+
+            <a href="/logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================================
+         DASHBOARD
+    ================================= -->
+
+    <main class="dashboard">
+
+        <!-- Welcome Section -->
+
+        <section class="welcome">
+
+            <div>
+
+                <div class="small-title">
+                    RHEUMACARE
+                </div>
+
+                <h1>
+                    Welcome, {{ name }} 👋
+                </h1>
+
+                <p>
+                    Your personal rheumatoid arthritis
+                    health support and analytics platform.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             MAIN FEATURES
+        ================================= -->
+
+        <h2 class="section-title">
+            Your Health Tools
+        </h2>
+
+
+        <div class="dashboard-grid">
+
+
+            <!-- Assessment -->
+
+            <a href="/assessment"
+               class="dashboard-card">
+
+                <div class="card-icon">
+                    🩺
+                </div>
+
+                <h3>
+                    RA Assessment
+                </h3>
+
+                <p>
+                    Enter health parameters and get
+                    an educational RA-related prediction
+                    using the machine learning model.
+                </p>
+
+            </a>
+
+
+            <!-- Patient Analytics -->
+
+            <a href="/analytics"
+               class="dashboard-card">
+
+                <div class="card-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Patient Analytics
+                </h3>
+
+                <p>
+                    Explore rheumatoid arthritis patient
+                    data, diagnosis distribution, symptoms,
+                    inflammation indicators and disease severity.
+                </p>
+
+            </a>
+
+
+            <!-- Diet -->
+
+            <a href="/diet"
+               class="dashboard-card">
+
+                <div class="card-icon">
+                    🥗
+                </div>
+
+                <h3>
+                    Diet Guidance
+                </h3>
+
+                <p>
+                    View general educational information
+                    about foods and healthy lifestyle
+                    choices related to joint health.
+                </p>
+
+            </a>
+
+
+            <!-- Medicine -->
+
+            <a href="/medicine"
+               class="dashboard-card">
+
+                <div class="card-icon">
+                    💊
+                </div>
+
+                <h3>
+                    Medicine Reminder
+                </h3>
+
+                <p>
+                    Record doctor-prescribed medicines
+                    and set reminder times for your
+                    medication schedule.
+                </p>
+
+            </a>
+
+
+            <!-- Health Tracker -->
+
+            <a href="/tracker"
+               class="dashboard-card">
+
+                <div class="card-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Health Tracker
+                </h3>
+
+                <p>
+                    Track pain level, morning stiffness,
+                    tender joints and swollen joints
+                    over time.
+                </p>
+
+            </a>
+
+
+            <!-- Logout -->
+
+            <a href="/logout"
+               class="dashboard-card">
+
+                <div class="card-icon">
+                    🚪
+                </div>
+
+                <h3>
+                    Logout
+                </h3>
+
+                <p>
+                    Safely logout from your RheumaCare
+                    account.
+                </p>
+
+            </a>
+
+        </div>
+
+
+        <!-- ================================
+             HOW RHEUMACARE WORKS
+        ================================= -->
+
+        <section class="info-section">
+
+            <div class="info-card">
+
+                <h2>
+                    🔬 How RheumaCare Works
+                </h2>
+
+                <p>
+                    RheumaCare combines machine learning,
+                    patient health tracking and data analytics
+                    to provide an educational rheumatoid
+                    arthritis support platform.
+                </p>
+
+                <p>
+                    Patient information can be assessed using
+                    the machine learning model, while the
+                    analytics dashboard provides visual
+                    insights from the patient dataset.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <h2>
+                    💡 Quick Access
+                </h2>
+
+                <p>
+                    Use <strong>RA Assessment</strong>
+                    to enter patient parameters.
+                </p>
+
+                <p>
+                    Use <strong>Patient Analytics</strong>
+                    to explore the dataset visually.
+                </p>
+
+                <p>
+                    Use <strong>Health Tracker</strong>
+                    to record health observations.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             PROJECT WORKFLOW
+        ================================= -->
+
+        <section class="info-card"
+                 style="margin-top: 35px;">
+
+            <h2>
+                📌 RheumaCare Workflow
+            </h2>
+
+            <div class="dashboard-process">
+
+                <div>
+
+                    <h3>
+                        01. Patient Data
+                    </h3>
+
+                    <p>
+                        Collect relevant patient health
+                        parameters such as RF, Anti-CCP,
+                        ESR, CRP and joint symptoms.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        02. ML Assessment
+                    </h3>
+
+                    <p>
+                        The machine learning model analyzes
+                        the entered parameters and provides
+                        an educational RA-related indicator.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        03. Analytics
+                    </h3>
+
+                    <p>
+                        Visualize patient information using
+                        charts for diagnosis, age, gender,
+                        inflammation and symptoms.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        04. Health Tracking
+                    </h3>
+
+                    <p>
+                        Record health observations and
+                        monitor changes in symptoms over time.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             TECHNOLOGIES
+        ================================= -->
+
+        <section class="info-card"
+                 style="margin-top: 25px;">
+
+            <h2>
+                💻 Technologies Used
+            </h2>
+
+            <div class="dashboard-tech">
+
+                <span>
+                    Python
+                </span>
+
+                <span>
+                    Flask
+                </span>
+
+                <span>
+                    SQLite
+                </span>
+
+                <span>
+                    Machine Learning
+                </span>
+
+                <span>
+                    Pandas
+                </span>
+
+                <span>
+                    Power BI Style Analytics
+                </span>
+
+                <span>
+                    Chart.js
+                </span>
+
+                <span>
+                    HTML & CSS
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             PROJECT NOTE
+        ================================= -->
+
+        <div class="analytics-note"
+             style="margin-top: 25px;">
+
+            ⚠️
+            RheumaCare is an educational project.
+            The machine learning prediction and analytics
+            are not a medical diagnosis and should not
+            replace professional medical advice.
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

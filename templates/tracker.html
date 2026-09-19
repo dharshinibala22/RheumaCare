@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Tracker - RheumaCare</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<nav>
+    <h2>RheumaCare</h2>
+
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/assessment">Assessment</a>
+        <a href="/diet">Diet</a>
+        <a href="/medicine">Medicine</a>
+        <a href="/tracker">Tracker</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <h1>🩺 Health Tracker</h1>
+
+    <p>
+        Track your daily symptoms and health-related information.
+    </p>
+
+
+    <!-- ADD HEALTH ENTRY -->
+
+    <div class="card">
+
+        <h2>📝 Daily Health Entry</h2>
+
+        <form method="POST" action="/tracker">
+
+            <label>Pain Level (0 - 10)</label>
+
+            <input type="number"
+                   name="pain_level"
+                   min="0"
+                   max="10"
+                   required
+                   placeholder="Enter pain level">
+
+
+            <label>Morning Stiffness (minutes)</label>
+
+            <input type="number"
+                   name="morning_stiffness"
+                   min="0"
+                   required
+                   placeholder="Minutes">
+
+
+            <label>Tender Joints</label>
+
+            <input type="number"
+                   name="tender_joints"
+                   min="0"
+                   required
+                   placeholder="Number of joints">
+
+
+            <label>Swollen Joints</label>
+
+            <input type="number"
+                   name="swollen_joints"
+                   min="0"
+                   required
+                   placeholder="Number of joints">
+
+
+            <label>Notes</label>
+
+            <textarea name="notes"
+                      placeholder="Enter today's symptoms"></textarea>
+
+
+            <button type="submit">
+                Save Health Entry
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- PREVIOUS ENTRIES -->
+
+    <div class="card">
+
+        <h2>📊 Previous Health Entries</h2>
+
+        {% if entries %}
+
+            {% for entry in entries %}
+
+            <div class="medicine-item">
+
+                <p>
+                    <strong>📅 Date:</strong>
+                    {{ entry["created_at"] }}
+                </p>
+
+                <p>
+                    😣 Pain Level:
+                    {{ entry["pain_level"] }}/10
+                </p>
+
+                <p>
+                    ⏰ Morning Stiffness:
+                    {{ entry["morning_stiffness"] }} minutes
+                </p>
+
+                <p>
+                    🦴 Tender Joints:
+                    {{ entry["tender_joints"] }}
+                </p>
+
+                <p>
+                    🔴 Swollen Joints:
+                    {{ entry["swollen_joints"] }}
+                </p>
+
+                <p>
+                    📝 Notes:
+                    {{ entry["notes"] }}
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No health entries recorded yet.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- DISCLAIMER -->
+
+    <div class="card">
+
+        <h2>⚠️ Important</h2>
+
+        <p>
+            This tracker is for personal health monitoring and
+            educational purposes. It does not replace professional
+            medical advice.
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
