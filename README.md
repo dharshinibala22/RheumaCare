@@ -17,16 +17,6 @@ The application combines **Flask, SQLite, Machine Learning, and Data Analytics**
 
 ---
 
-## 👩‍💻 Developer
-
-**Name:** Dharshini Balasubramaniyan  
-**Course:** Data Science  
-**Project Type:** Final Year Project  
-**Domain:** Data Science / Healthcare Analytics  
-**Application Type:** Web Application
-
----
-
 ## 🎯 Project Objectives
 
 The main objectives of RheumaCare are:
@@ -195,4 +185,4 @@ model/ra_model.pkl
 
 
 
-**Developed by:** Dharshini Balasubramaniyan
+##Developed by:** Dharshini Balasubramaniyan **
