@@ -181,6 +181,7 @@ The trained model is stored in:
 
 ```text
 model/ra_model.pkl
+```
 
 
 
