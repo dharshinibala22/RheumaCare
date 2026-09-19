@@ -15,8 +15,6 @@ The application combines **Flask, SQLite, Machine Learning, and Data Analytics**
 **RheumaCare Website:**  
 `https://rheumacare.onrender.com/dashboard'
 
-> Replace the above URL with your actual Render website link.
-
 ---
 
 ## 👩‍💻 Developer
@@ -193,5 +191,8 @@ The trained model is stored in:
 
 ```text
 model/ra_model.pkl
+
+
+
 
 **Developed by:** Dharshini Balasubramaniyan
